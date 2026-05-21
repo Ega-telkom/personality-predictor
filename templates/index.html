@@ -3,292 +3,47 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personality Predictor</title>
-
+    <title>AI Diagnostics Hub</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        input[type="range"] {
-            accent-color: #18181b;
-        }
-
-        .dark input[type="range"] {
-            accent-color: #fafafa;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e4e4e7;
-            border-radius: 99px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #27272a;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-
-<body class="bg-white dark:bg-zinc-900 lg:bg-zinc-100 lg:dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen lg:h-screen w-screen flex items-center justify-center p-0 lg:p-6 overflow-y-auto lg:overflow-hidden">
-
-    <div class="w-full max-w-6xl h-auto lg:h-[85vh] max-h-full lg:max-h-[760px] bg-transparent dark:bg-transparent lg:bg-white lg:dark:bg-zinc-900 border-0 lg:border lg:border-zinc-200 lg:dark:border-zinc-800 lg:rounded-xl flex flex-col lg:flex-row shadow-xs overflow-hidden">
-
-        <div class="p-6 md:p-10 lg:p-12 lg:w-5/12 flex flex-col justify-center border-b border-zinc-200 dark:border-zinc-800 lg:border-b-0 lg:border-r bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0 select-none">
-            <div class="space-y-4 max-w-sm">
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-                    Are you <span class="text-blue-500">introverted</span> or <span class="text-red-500">extroverted</span>?
-                </h1>
-                <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
-                    Adjust the sliders and parameters to allow our algorithm to compute and predict your core personality type.
-                </p>
-            </div>
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen w-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-4xl space-y-8 text-center">
+        <div class="space-y-3">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">AI Predictive Analytics Hub</h1>
+            <p class="text-zinc-500 dark:text-zinc-400 text-base max-w-md mx-auto">Select an evaluation matrix below to begin running modular machine learning diagnostics.</p>
         </div>
 
-        <div class="p-6 md:p-10 lg:p-12 lg:w-7/12 flex flex-col justify-start lg:overflow-y-auto custom-scrollbar bg-white dark:bg-zinc-900">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto">
+            <a href="/stunting" class="group p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xs hover:border-zinc-400 dark:hover:border-zinc-600 transition-all active:scale-[0.99] flex flex-col justify-between min-h-[180px]">
+                <div>
+                    <div class="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-red-500 mb-4">
+                        <i data-lucide="apple" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-bold tracking-tight mb-1">Cek Status Gizi Balita</h2>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400">Evaluate toddlers for potential micro-nutritional stunting factors safely and early.</p>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs font-semibold text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors pt-4">
+                    Open Analyzer <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+                </div>
+            </a>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="flex flex-col items-center justify-center text-center space-y-8 py-12 lg:my-auto">
-                            
-                            {% if category == 'introvert' %}
-                                <div class="w-20 h-20 rounded-full bg-blue-50 dark:bg-blue-950/20 flex items-center justify-center border border-blue-100 dark:border-blue-900/50 shadow-sm">
-                                    <i data-lucide="waves" class="w-10 h-10 text-blue-500"></i>
-                                </div>
-                                <div class="space-y-3 max-w-md">
-                                    <h2 class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">
-                                        {{ message }}
-                                    </h2>
-                                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
-                                        Your values align heavily with inward-facing energy calibration, thoughtful reflection, and independent deep focus.
-                                    </p>
-                                </div>
-
-                            {% elif category == 'extrovert' %}
-                                <div class="w-20 h-20 rounded-full bg-red-50 dark:bg-red-950/20 flex items-center justify-center border border-red-100 dark:border-red-900/50 shadow-sm">
-                                    <i data-lucide="zap" class="w-10 h-10 text-red-500"></i>
-                                </div>
-                                <div class="space-y-3 max-w-md">
-                                    <h2 class="text-3xl font-extrabold text-red-600 dark:text-red-400 tracking-tight">
-                                        {{ message }}
-                                    </h2>
-                                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
-                                        Your values align heavily with outward-focused actions, finding core strength in dynamic social settings and community connections.
-                                    </p>
-                                </div>
-
-                            {% else %}
-                                <div class="w-20 h-20 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                                    <i data-lucide="alert-circle" class="w-10 h-10 text-zinc-500"></i>
-                                </div>
-                                <div class="space-y-2">
-                                    <h2 class="text-xl font-bold text-zinc-800 dark:text-zinc-200">{{ message }}</h2>
-                                </div>
-                            {% endif %}
-
-                            <a 
-                                href="/" 
-                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 transition-all font-semibold text-sm cursor-pointer shadow-xs"
-                            >
-                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                                Back to Parameters
-                            </a>
-                        </div>
-                    {% endfor %}
-
-                {% else %}
-                    <form action="/predict" method="POST" class="space-y-6 w-full py-2">
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                    <i data-lucide="user" class="w-4 h-4 text-zinc-400"></i>
-                                    How long do you spend alone daily?
-                                </label>
-                                <span id="aloneValue" class="text-xs font-bold bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-600 dark:text-zinc-300 tracking-wide">
-                                    7hr
-                                </span>
-                            </div>
-                            <input
-                                type="range"
-                                name="time_spent_alone"
-                                min="0"
-                                max="15"
-                                step="1"
-                                value="7"
-                                oninput="aloneValue.innerText = this.value + 'hr'"
-                                class="w-full cursor-pointer h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none"
-                            >
-                            <div class="flex justify-between text-[11px] text-zinc-400 dark:text-zinc-500 font-medium px-0.5">
-                                <span>0h</span><span>5h</span><span>10h</span><span>15h</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2.5">
-                            <label class="block text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                <i data-lucide="theater" class="w-4 h-4 text-zinc-400"></i>
-                                Do you fear the stage?
-                            </label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="stage_fear" value="true" class="peer hidden" checked>
-                                    <div class="rounded-md border border-zinc-200 dark:border-zinc-800 p-3 text-center transition-all bg-white dark:bg-zinc-900 peer-checked:border-red-500 dark:peer-checked:border-red-500 peer-checked:ring-1 peer-checked:ring-red-500 dark:peer-checked:ring-red-500 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30">
-                                        <i data-lucide="check" class="w-4 h-4 mx-auto mb-1 text-red-500"></i>
-                                        <div class="text-sm font-medium text-red-600 dark:text-red-400">Yes, I fear the stage</div>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="stage_fear" value="false" class="peer hidden">
-                                    <div class="rounded-md border border-zinc-200 dark:border-zinc-800 p-3 text-center transition-all bg-white dark:bg-zinc-900 peer-checked:border-blue-500 dark:peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500 dark:peer-checked:ring-blue-500 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30">
-                                        <i data-lucide="x" class="w-4 h-4 mx-auto mb-1 text-blue-500"></i>
-                                        <div class="text-sm font-medium text-blue-600 dark:text-blue-400">No, I don't fear it</div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                    <i data-lucide="party-popper" class="w-4 h-4 text-zinc-400"></i>
-                                    How often do you attend social events?
-                                </label>
-                                <span id="eventValue" class="text-xs font-bold bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-600 dark:text-zinc-300">5</span>
-                            </div>
-                            <input
-                                type="range"
-                                name="social_event_attendance"
-                                min="0"
-                                max="10"
-                                value="5"
-                                step="1"
-                                oninput="eventValue.innerText = this.value"
-                                class="w-full cursor-pointer h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none"
-                            >
-                            <div class="flex justify-between text-[11px] text-zinc-400 dark:text-zinc-500 font-medium px-0.5">
-                                <span>Rarely</span><span>Sometimes</span><span>Often</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                    <i data-lucide="map-pinned" class="w-4 h-4 text-zinc-400"></i>
-                                    How often do you go outside?
-                                </label>
-                                <span id="outsideValue" class="text-xs font-bold bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-600 dark:text-zinc-300">5</span>
-                            </div>
-                            <input
-                                type="range"
-                                name="going_outside"
-                                min="0"
-                                max="10"
-                                value="5"
-                                step="1"
-                                oninput="outsideValue.innerText = this.value"
-                                class="w-full cursor-pointer h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none"
-                            >
-                            <div class="flex justify-between text-[11px] text-zinc-400 dark:text-zinc-500 font-medium px-0.5">
-                                <span>Never</span><span>Sometimes</span><span>Always</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2.5">
-                            <label class="block text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                <i data-lucide="zap" class="w-4 h-4 text-zinc-400"></i>
-                                Do you feel drained after socializing?
-                            </label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="drained_after_socializing" value="false" class="peer hidden" checked>
-                                    <div class="rounded-md border border-zinc-200 dark:border-zinc-800 p-3 text-center transition-all bg-white dark:bg-zinc-900 peer-checked:border-blue-500 dark:peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500 dark:peer-checked:ring-blue-500 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30">
-                                        <i data-lucide="battery-charging" class="w-4 h-4 mx-auto mb-1 text-blue-500"></i>
-                                        <div class="text-sm font-medium text-blue-600 dark:text-blue-400">No, I get energized</div>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="drained_after_socializing" value="true" class="peer hidden">
-                                    <div class="rounded-md border border-zinc-200 dark:border-zinc-800 p-3 text-center transition-all bg-white dark:bg-zinc-900 peer-checked:border-red-500 dark:peer-checked:border-red-500 peer-checked:ring-1 peer-checked:ring-red-500 dark:peer-checked:ring-red-500 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30">
-                                        <i data-lucide="battery" class="w-4 h-4 mx-auto mb-1 text-red-500"></i>
-                                        <div class="text-sm font-medium text-red-600 dark:text-red-400">Yes, I feel drained</div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                    <i data-lucide="users" class="w-4 h-4 text-zinc-400"></i>
-                                    How large is your friend circle?
-                                </label>
-                                <span id="friendsValue" class="text-xs font-bold bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-600 dark:text-zinc-300">5</span>
-                            </div>
-                            <input
-                                type="range"
-                                name="friends_circle_size"
-                                min="0"
-                                max="20"
-                                value="5"
-                                step="1"
-                                oninput="friendsValue.innerText = this.value"
-                                class="w-full cursor-pointer h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none"
-                            >
-                            <div class="flex justify-between text-[11px] text-zinc-400 dark:text-zinc-500 font-medium px-0.5">
-                                <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="text-sm font-semibold tracking-wide flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-                                    <i data-lucide="message-circle-plus" class="w-4 h-4 text-zinc-400"></i>
-                                    How often do you post on social media?
-                                </label>
-                                <span id="postValue" class="text-xs font-bold bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-600 dark:text-zinc-300">3</span>
-                            </div>
-                            <input
-                                type="range"
-                                name="post_frequency"
-                                min="0"
-                                max="10"
-                                value="3"
-                                step="1"
-                                oninput="postValue.innerText = this.value"
-                                class="w-full cursor-pointer h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none"
-                            >
-                            <div class="flex justify-between text-[11px] text-zinc-400 dark:text-zinc-500 font-medium px-0.5">
-                                <span>Never</span><span>Sometimes</span><span>Very Often</span>
-                            </div>
-                        </div>
-
-                        <div class="pt-1">
-                            <button
-                                type="submit"
-                                class="w-full py-3 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold hover:opacity-90 transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer shadow-sm text-sm"
-                            >
-                                <i data-lucide="sparkle" class="w-4 h-4"></i>
-                                Predict Personality
-                            </button>
-                        </div>
-                    </form>
-                {% endif %}
-            {% endwith %}
-
+            <a href="/personality" class="group p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xs hover:border-zinc-400 dark:hover:border-zinc-600 transition-all active:scale-[0.99] flex flex-col justify-between min-h-[180px]">
+                <div>
+                    <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-500 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-bold tracking-tight mb-1">Personality Predictor</h2>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400">Process behavioral parameters to determine Introversion vs Extraversion traits.</p>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs font-semibold text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors pt-4">
+                    Launch Assessment <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+                </div>
+            </a>
         </div>
     </div>
-
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
